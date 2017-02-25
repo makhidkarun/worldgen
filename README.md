@@ -5,6 +5,10 @@ Generates old-school SEC files compatible with various Traveller-type applicatio
 This is open source code, feel free to use it for any purpose.
 Contact the author at golan2072@gmail.com.
 
+v1.1 changelog:
+- Fixed a major bug where an empty string would have been generated instead of a trade code when there was a single trade code.
+- Population numbers can no longer be negative.
+
 v1.05 changelog:
 - Error message now shows correctly on wrong input on the main menu.
 - Fixed a bug in the definition of the "Ba" ("Barren") trade code. Should now appear correctly.
