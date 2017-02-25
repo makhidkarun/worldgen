@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.0, February 25, 2017.
+# v1.05, February 25, 2017.
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -289,7 +289,7 @@ def trade_gen (uwp_list): #input UWP list
 		trade_list.append("Ag")
 	if uwp_list[1] == 0 and uwp_list[2] == 0 and uwp_list[3] == 0:
 		trade_list.append("As")
-	if uwp_list[4] == 0 and uwp_list[5] == 6 and uwp_list[6] == 0:
+	if uwp_list[4] == 0 and uwp_list[5] == 0 and uwp_list[6] == 0:
 		trade_list.append("Ba")
 	if uwp_list[2] >= 2 and uwp_list[3] == 0:
 		trade_list.append("De")
@@ -778,7 +778,7 @@ while menu == 1: #Program will always return to the menu unless exited
 	elif choice in [5, "5"]: #displays program information
 		print ("")
 		print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-		print("v1.0, February 25, 2017")
+		print("v1.05, February 25, 2017")
 		print("This is open source code, feel free to use it for any purpose")
 		print("contact the author at golan2072@gmail.com")
 		print("Press any key to continue")
@@ -788,4 +788,5 @@ while menu == 1: #Program will always return to the menu unless exited
 		menu=0
 		break
 	else:
-		print
+		print ("Invalid Input, press any key to return to menu")
+		input()
