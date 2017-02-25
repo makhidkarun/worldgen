@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.05, February 25, 2017.
+# v1.1, February 25, 2017.
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -170,6 +170,8 @@ def pop_gen (worldsize, worldatmo, worldhyd): #inputs world size, atmospehere, a
 		worldpop+=1
 	if worldhyd==0 and worldatmo<3:
 		worldpop-=2
+	if worldpop<0:
+		worldpop=0
 	return worldpop #outputs population number
 	
 def starport_gen (worldpop): #inputs the world population number
@@ -481,7 +483,7 @@ def trade_stringer (trade_list): #input trade code list
 		trade_count=5-len(trade_list)
 		trade_space="   "*trade_count
 		trade_string= " ".join(trade_list) + trade_space
-	if len(trade_list)<=1:
+	if len(trade_list)<=0:
 		trade_string="   "*5
 	return trade_string #output trade code string
 
@@ -778,7 +780,7 @@ while menu == 1: #Program will always return to the menu unless exited
 	elif choice in [5, "5"]: #displays program information
 		print ("")
 		print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-		print("v1.05, February 25, 2017")
+		print("v1.1, February 25, 2017")
 		print("This is open source code, feel free to use it for any purpose")
 		print("contact the author at golan2072@gmail.com")
 		print("Press any key to continue")
