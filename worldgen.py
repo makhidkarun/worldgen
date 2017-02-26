@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.2, February 26, 2017.
+# v1.3, February 26, 2017.
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -50,28 +50,35 @@ def current_dir():
 		directory = os.getcwd()
 	return directory
 			
+def check_file_exists(check_file):
+	if check_file in os.listdir():
+		file_exists = True
+	else:
+		file_exists = False
+	return file_exists
+ 
 def savefile():
 	"""
 	file-saving function
 	"""
 	filename=str(input("Please enter file name to generate: "))
-	directory=current_dir() #check if file already exists
-	filenumber=len(directory)
-	for i in range (0, filenumber):
-		directory[i]=str(directory[i].lower())
 	filecheck=filename+".sec"
-	filecheck=filecheck.lower()
-	if filecheck in directory: #overwrite query
-		save=1
-		while save == 1:
-			print(" ")
-			print("File already exists. Overwrite?")
-			overwrite=yn()
-			if overwrite == "y":
-				save=0
-				break
-			if overwrite == "n":
-				filename=input("Please enter new file name to generate: ")
+	save = 1
+	#directory=current_dir() #check if file already exists
+	#filenumber=len(directory)
+	#for i in range (0, filenumber):
+	#  print(directory[i])
+	#  #directory[i]=str(directory[i].lower())
+	#  directory = "fred"
+	#filecheck=filecheck.lower()
+	if check_file_exists(filecheck):
+		print(" ")
+		print("File already exists. Overwrite?")
+		overwrite=yn()
+		if overwrite == "y":
+			save=0
+		if overwrite == "n":
+			filename=input("Please enter new file name to generate: ")
 	return filename #outpus File name
 
 def clear_screen():
@@ -762,7 +769,7 @@ menu=1
 while menu == 1: #Program will always return to the menu unless exited
 	clear_screen() #clears screen before any new appearance of the menu
 	print ("")
-	print ("Welcome to the Cepheus Engine World Generator v1.2")
+	print ("Welcome to the Cepheus Engine World Generator v1.3")
 	print ("========================================")
 	print ("Please choose an option:")
 	print ("1 - Generate a single world to screen")
@@ -803,7 +810,7 @@ while menu == 1: #Program will always return to the menu unless exited
 	elif choice in [5, "5"]: #displays program information
 		print ("")
 		print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-		print("v1.2, February 25, 2017")
+		print("v1.3, February 25, 2017")
 		print("This is open source code, feel free to use it for any purpose")
 		print("contact the author at golan2072@gmail.com")
 		print("Press any key to continue")
