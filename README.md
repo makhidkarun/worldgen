@@ -5,6 +5,9 @@ Generates old-school SEC files compatible with various Traveller-type applicatio
 This is open source code, feel free to use it for any purpose.
 Contact the author at golan2072@gmail.com.
 
+v1.3 changelog:
+- Added Linux support. Tested on Linux Lite 3.2.
+
 v1.2 changelog:
 - Fixed the formatting bug. Output SEC file should now be perfectly formatted.
 - The savefile function is no longer case-sensitive in recognizing existing files for over-writing.
