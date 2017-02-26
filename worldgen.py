@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.1, February 25, 2017.
+# v1.2, February 26, 2017.
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -8,6 +8,7 @@
 import random
 import string
 import os
+import platform
 
 #set functions
 
@@ -28,25 +29,40 @@ def yn():
 	"""
 	query = 1
 	while query == 1:
-		answer = input("Y/N: ")
-		if answer in ["y", "Y"]:
+		answer = str(input("Y/N: "))
+		answer=answer.lower()
+		if answer == "y":
 			return "y"
 			query = 0
-		if answer in ["y", "Y"]:
+		if answer == "n":
 			return "n" #outputs "y" or "n"
 			query = 0
 		else:
 			print ("Invalid Answer")
-	
+
+def current_dir():
+	"""
+	lists the current directory's contents on Windows or Linux
+	"""
+	if platform.system() == "Windows":
+		directory=os.listdir(".\\")
+	else:
+		directory = os.getcwd()
+	return directory
+			
 def savefile():
 	"""
 	file-saving function
 	"""
 	filename=str(input("Please enter file name to generate: "))
-	directory=os.listdir(".\\") #check if file already exists
-	save=1
+	directory=current_dir() #check if file already exists
+	filenumber=len(directory)
+	for i in range (0, filenumber):
+		directory[i]=str(directory[i].lower())
 	filecheck=filename+".sec"
+	filecheck=filecheck.lower()
 	if filecheck in directory: #overwrite query
+		save=1
 		while save == 1:
 			print(" ")
 			print("File already exists. Overwrite?")
@@ -57,58 +73,65 @@ def savefile():
 			if overwrite == "n":
 				filename=input("Please enter new file name to generate: ")
 	return filename #outpus File name
+
+def clear_screen():
+	if platform.system() == "Windows":
+		os.system('cls')
+	else:
+		os.system('clear')
 	
 def pseudo_hex(num): #inputs number
 	"""
 	converts numbers to Cepheus Engine "Pseudo-Hex"
 	"""
-	if num==10 or num=="10":
+	num=int(num)
+	if num==10:
 		num="A"
-	elif num==11 or num=="11":
+	elif num==11:
 		num="B"
-	elif num==12 or num=="12":
+	elif num==12:
 		num="C"
-	elif num==13 or num=="13":
+	elif num==13:
 		num="D"
-	elif num==14 or num=="14":
+	elif num==14:
 		num="E"
-	elif num==15 or num=="15":
+	elif num==15:
 		num="F"
-	elif num==16 or num=="16":
+	elif num==16:
 		num="G"
-	elif num==17 or num=="17":
+	elif num==17:
 		num="H"
-	elif num==18 or num=="18":
+	elif num==18:
 		num="J"
-	elif num==19 or num=="19":
+	elif num==19:
 		num="K"
-	elif num==20 or num=="20":
+	elif num==20:
 		num="L"
-	elif num==21 or num=="21":
+	elif num==21:
 		num="M"
-	elif num==22 or num=="22":
+	elif num==22:
 		num="N"
-	elif num==23 or num=="23":
+	elif num==23:
 		num="P"
-	elif num==24 or num=="24":
+	elif num==24:
 		num="Q"
-	elif num==25 or num=="25":
+	elif num==25:
 		num="R"
-	elif num==26 or num=="26":
+	elif num==26:
 		num="S"
-	elif num==27 or num=="27":
+	elif num==27:
 		num="T"
-	elif num==28 or num=="28":
+	elif num==28:
 		num="U"
-	elif num==29 or num=="29":
+	elif num==29:
 		num="V"
-	elif num==30 or num=="30":
+	elif num==30:
 		num="W"
-	elif num==31 or num=="31":
+	elif num==31:
 		num="X"
-	elif num==32 or num=="32":
+	elif num==32:
 		num="Y"
-	elif num==33 or num=="33":
+	elif num==33:
 		num="Z"
 	return num #outputs "pseudo-hex" number
 
@@ -479,12 +502,12 @@ def trade_stringer (trade_list): #input trade code list
 	Note that this is a plain text file formatted by spaces so the trade code string's length must be fixed.
 	"""
 	trade_string=""
-	if len(trade_list)>=1:
-		trade_count=5-len(trade_list)
-		trade_space="   "*trade_count
-		trade_string= " ".join(trade_list) + trade_space
-	if len(trade_list)<=0:
-		trade_string="   "*5
+	trade_count=6-len(trade_list)
+	if trade_count<=0:
+		trade_count=0
+	for i in range (1, trade_count):
+		trade_list.append("  ")
+	trade_string= " ".join(trade_list)
 	return trade_string #output trade code string
 
 def star_gen(uwp_list): #generates realistic stellar data using Constantine Thomas' rules (version 3.0).
@@ -737,9 +760,9 @@ def sec_gen (maxcolumn, maxrow): #input maximum generated space row and column. 
 #program body and menu
 menu=1
 while menu == 1: #Program will always return to the menu unless exited
-	os.system('cls') #clears screen before any new appearance of the menu
+	clear_screen() #clears screen before any new appearance of the menu
 	print ("")
-	print ("Welcome to the Cepheus Engine World Generator v1.0")
+	print ("Welcome to the Cepheus Engine World Generator v1.2")
 	print ("========================================")
 	print ("Please choose an option:")
 	print ("1 - Generate a single world to screen")
@@ -780,7 +803,7 @@ while menu == 1: #Program will always return to the menu unless exited
 	elif choice in [5, "5"]: #displays program information
 		print ("")
 		print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-		print("v1.1, February 25, 2017")
+		print("v1.2, February 25, 2017")
 		print("This is open source code, feel free to use it for any purpose")
 		print("contact the author at golan2072@gmail.com")
 		print("Press any key to continue")
