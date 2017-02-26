@@ -1,9 +1,14 @@
 # worldgen
 World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-v1.05, February 25, 2017.
+v1.2, February 26, 2017.
 Generates old-school SEC files compatible with various Traveller-type applications.
 This is open source code, feel free to use it for any purpose.
 Contact the author at golan2072@gmail.com.
+
+v1.2 changelog:
+- Fixed the formatting bug. Output SEC file should now be perfectly formatted.
+- The savefile function is no longer case-sensitive in recognizing existing files for over-writing.
+- Improved code for the Pseudo Hex Converter function.
 
 v1.1 changelog:
 - Fixed a major bug where an empty string would have been generated instead of a trade code when there was a single trade code.
