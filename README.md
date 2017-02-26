@@ -9,6 +9,7 @@ v1.2 changelog:
 - Fixed the formatting bug. Output SEC file should now be perfectly formatted.
 - The savefile function is no longer case-sensitive in recognizing existing files for over-writing.
 - Improved code for the Pseudo Hex Converter function.
+- Thanks to Leam Hall and other very kind people for their input!
 
 v1.1 changelog:
 - Fixed a major bug where an empty string would have been generated instead of a trade code when there was a single trade code.
