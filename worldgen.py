@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.3, February 26, 2017.
+# v1.4, February 28, 2017.
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -90,56 +90,11 @@ def clear_screen():
 def pseudo_hex(num): #inputs number
 	"""
 	converts numbers to Cepheus Engine "Pseudo-Hex"
+	now converted to a list.
 	"""
 	num=int(num)
-	if num==10:
-		num="A"
-	elif num==11:
-		num="B"
-	elif num==12:
-		num="C"
-	elif num==13:
-		num="D"
-	elif num==14:
-		num="E"
-	elif num==15:
-		num="F"
-	elif num==16:
-		num="G"
-	elif num==17:
-		num="H"
-	elif num==18:
-		num="J"
-	elif num==19:
-		num="K"
-	elif num==20:
-		num="L"
-	elif num==21:
-		num="M"
-	elif num==22:
-		num="N"
-	elif num==23:
-		num="P"
-	elif num==24:
-		num="Q"
-	elif num==25:
-		num="R"
-	elif num==26:
-		num="S"
-	elif num==27:
-		num="T"
-	elif num==28:
-		num="U"
-	elif num==29:
-		num="V"
-	elif num==30:
-		num="W"
-	elif num==31:
-		num="X"
-	elif num==32:
-		num="Y"
-	elif num==33:
-		num="Z"
+	code=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "E", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+	num=code[num]
 	return num #outputs "pseudo-hex" number
 
 def size_gen():
@@ -769,7 +724,7 @@ menu=1
 while menu == 1: #Program will always return to the menu unless exited
 	clear_screen() #clears screen before any new appearance of the menu
 	print ("")
-	print ("Welcome to the Cepheus Engine World Generator v1.3")
+	print ("Welcome to the Cepheus Engine World Generator v1.4")
 	print ("========================================")
 	print ("Please choose an option:")
 	print ("1 - Generate a single world to screen")
@@ -810,7 +765,7 @@ while menu == 1: #Program will always return to the menu unless exited
 	elif choice in [5, "5"]: #displays program information
 		print ("")
 		print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-		print("v1.3, February 25, 2017")
+		print("v1.4, February 28, 2017")
 		print("This is open source code, feel free to use it for any purpose")
 		print("contact the author at golan2072@gmail.com")
 		print("Press any key to continue")
