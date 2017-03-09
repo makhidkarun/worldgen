@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.4, February 28, 2017.
+# v1.45, March 9, 2017.
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -702,78 +702,87 @@ def sec_gen (maxcolumn, maxrow): #input maximum generated space row and column. 
 	outp.write(""+'\r\n')
 	outp.write("....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+....8"+'\r\n')
 	outp.write(""+'\r\n') #end of SEC file header output
-	for column in range (1, maxcolumn+1): #generate subsector, quadrant, or sector
-		for row in range (1, maxrow+1):
-			throw=dice(1,6)
-			if throw>=4:
-				if row<=9:
-					row_loc="0%i" % (row)
-				if row>=10:
-					row_loc="%i" % (row)
-				if column<=9:
-					column_loc="0%i" % (column)
-				if column>=10:
-					column_loc="%i" % (column)
-				worldhex=column_loc+row_loc
-				world_line=world_gen(worldhex)
-				outp.write(world_line+'\r\n')
-	outp.close() #close file
+	try: #added to make sure the file is always closed no matter what
+		for column in range (1, maxcolumn+1): #generate subsector, quadrant, or sector
+			for row in range (1, maxrow+1):
+				throw=dice(1,6)
+				if throw>=4:
+					if row<=9:
+						row_loc="0%i" % (row)
+					if row>=10:
+						row_loc="%i" % (row)
+					if column<=9:
+						column_loc="0%i" % (column)
+					if column>=10:
+						column_loc="%i" % (column)
+					worldhex=column_loc+row_loc
+					world_line=world_gen(worldhex)
+					outp.write(world_line+'\r\n')
+	finally: #added to make sure the file is always closed no matter what
+		outp.close() #close file
+	
 				
-#program body and menu
-menu=1
-while menu == 1: #Program will always return to the menu unless exited
-	clear_screen() #clears screen before any new appearance of the menu
-	print ("")
-	print ("Welcome to the Cepheus Engine World Generator v1.4")
-	print ("========================================")
-	print ("Please choose an option:")
-	print ("1 - Generate a single world to screen")
-	print ("2 - Generate a subsector to file")
-	print ("3 - Generate a quadrant to file")
-	print ("4 - Generate a sector to file")
-	print ("5 - About")
-	print ("6 - Exit Program")
-	print ("========================================")
-	choice=input("Please enter your choice: ")
-	if choice in [1, "1"]:
-		print("")
-		print (world_gen("0101"))
-		print("")
-		print("Press any key to continue")
-		input()
-	elif choice in  [2, "2"]:
-		print("")
-		print ("Generating subsector to file")
+def	main():
+	"""
+	Main program body
+	"""
+	menu=1
+	while menu == 1: #Program will always return to the menu unless exited
+		clear_screen() #clears screen before any new appearance of the menu
 		print ("")
-		sec_gen(8, 10)
-		print ("Subsector generated, press any key to continue")
-		input()
-	elif choice in [3, "3"]:
-		print("")
-		print ("Generating quadrant to file")
-		print ("")
-		sec_gen(16, 20)
-		print ("Quadrant generated, press any key to continue")
-		input()
-	elif choice in [4, "4"]:
-		print("")
-		print ("Generating sector to file")
-		print ("")
-		sec_gen(32, 40)
-		print ("Sector generated, press any key to continue")
-		input()
-	elif choice in [5, "5"]: #displays program information
-		print ("")
-		print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-		print("v1.4, February 28, 2017")
-		print("This is open source code, feel free to use it for any purpose")
-		print("contact the author at golan2072@gmail.com")
-		print("Press any key to continue")
-		input()
-	elif choice in [6, "6"]:
-		print("Exiting program")
-		menu=0
-		break
-	else:
-		print ("Invalid Input, press any key to return to menu")
-		input()
+		print ("Welcome to the Cepheus Engine World Generator v1.45")
+		print ("========================================")
+		print ("Please choose an option:")
+		print ("1 - Generate a single world to screen")
+		print ("2 - Generate a subsector to file")
+		print ("3 - Generate a quadrant to file")
+		print ("4 - Generate a sector to file")
+		print ("5 - About")
+		print ("6 - Exit Program")
+		print ("========================================")
+		choice=input("Please enter your choice: ")
+		if choice in [1, "1"]:
+			print("")
+			print (world_gen("0101"))
+			print("")
+			print("Press any key to continue")
+			input()
+		elif choice in  [2, "2"]:
+			print("")
+			print ("Generating subsector to file")
+			print ("")
+			sec_gen(8, 10)
+			print ("Subsector generated, press any key to continue")
+			input()
+		elif choice in [3, "3"]:
+			print("")
+			print ("Generating quadrant to file")
+			print ("")
+			sec_gen(16, 20)
+			print ("Quadrant generated, press any key to continue")
+			input()
+		elif choice in [4, "4"]:
+			print("")
+			print ("Generating sector to file")
+			print ("")
+			sec_gen(32, 40)
+			print ("Sector generated, press any key to continue")
+			input()
+		elif choice in [5, "5"]: #displays program information
+			print ("")
+			print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
+			print("v1.45, March 9, 2017")
+			print("This is open source code, feel free to use it for any purpose")
+			print("contact the author at golan2072@gmail.com")
+			print("Press any key to continue")
+			input()
+		elif choice in [6, "6"]:
+			print("Exiting program")
+			menu=0
+			break
+		else:
+			print ("Invalid Input, press any key to return to menu")
+			input()
+
+#Program execution starts here
+main()
