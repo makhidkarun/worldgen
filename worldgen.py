@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.45, March 9, 2017.
+# v1.5, March 27, 2017.
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -86,6 +86,13 @@ def clear_screen():
 		os.system('cls')
 	else:
 		os.system('clear')
+
+def random_choice(list): #input list
+	"""
+	randomly chooses an element from a list.
+	"""
+	element=list[random.randint(0,len(list)-1)]
+	return element #output randomly-selected element
 	
 def pseudo_hex(num): #inputs number
 	"""
@@ -310,6 +317,20 @@ def trade_gen (uwp_list): #input UWP list
 		trade_list.append("Va")
 	return trade_list #output trade code list
 
+def trade_stringer (trade_list): #input trade code list
+	"""
+	build a Trade Code string suitable for a SEC file
+	Note that this is a plain text file formatted by spaces so the trade code string's length must be fixed.
+	"""
+	trade_string=""
+	trade_count=6-len(trade_list)
+	if trade_count<=0:
+		trade_count=0
+	for i in range (1, trade_count):
+		trade_list.append("  ")
+	trade_string= " ".join(trade_list)
+	return trade_string #output trade code string	
+
 def pop_mod (worldpop): #inputs the world population number
 	"""
 	generates the population multiplier
@@ -457,20 +478,6 @@ def uwp_hex (uwp_list): #input UWP list
 	uwp.append(pseudo_hex(uwp_list[7]))
 	uwp_string ="%s%s%s%s%s%s%s-%s " % (uwp[0],uwp[1],uwp[2],uwp[3],uwp[4],uwp[5],uwp[6],uwp[7])
 	return uwp_string #output Cepheus-style UWP string
-
-def trade_stringer (trade_list): #input trade code list
-	"""
-	build a Trade Code string suitable for a SEC file
-	Note that this is a plain text file formatted by spaces so the trade code string's length must be fixed.
-	"""
-	trade_string=""
-	trade_count=6-len(trade_list)
-	if trade_count<=0:
-		trade_count=0
-	for i in range (1, trade_count):
-		trade_list.append("  ")
-	trade_string= " ".join(trade_list)
-	return trade_string #output trade code string
 
 def star_gen(uwp_list): #generates realistic stellar data using Constantine Thomas' rules (version 3.0).
     n_stars=0
@@ -660,11 +667,38 @@ def star_gen(uwp_list): #generates realistic stellar data using Constantine Thom
     startext=str.join('', startext4)
     return startext	
 
+def name_gen():
+	"""
+	randomly chooses a name from a list
+	"""
+	name=""
+	file_check=check_file_exists("names.txt")
+	if file_check==False:
+		base_name=""
+	if file_check==True:
+		try:
+			name_file=open("names.txt", "r")
+			name_list=name_file.readlines()
+			base_name=random_choice(name_list)
+			base_name=base_name.strip()
+		finally:
+			name_file.close()
+	char_list=[base_name]
+	length_count=int(7-len(base_name)//2)
+	if int(len(base_name)%2)==0:
+		length_count+=1
+	if length_count<=0:
+		length_count=0
+	for i in range (1, length_count):
+		char_list.append(" ")
+	name= " ".join(char_list)
+	return name #output random name
+	
 def world_gen (worldhex): #input hex number
 	"""
 	primary world-generating function
 	"""
-	worldname="             " #placeholder - might be replaced by randomly-selected names in a later version
+	worldname=name_gen() #generates world name from list
 	allegiance="Na" #currently a placeholder
 	stellar=" "
 	uwp_list=uwp_gen() #generate UWP list
@@ -719,8 +753,7 @@ def sec_gen (maxcolumn, maxrow): #input maximum generated space row and column. 
 					world_line=world_gen(worldhex)
 					outp.write(world_line+'\r\n')
 	finally: #added to make sure the file is always closed no matter what
-		outp.close() #close file
-	
+		outp.close() #close file	
 				
 def	main():
 	"""
@@ -730,7 +763,7 @@ def	main():
 	while menu == 1: #Program will always return to the menu unless exited
 		clear_screen() #clears screen before any new appearance of the menu
 		print ("")
-		print ("Welcome to the Cepheus Engine World Generator v1.45")
+		print ("Welcome to the Cepheus Engine World Generator v1.5")
 		print ("========================================")
 		print ("Please choose an option:")
 		print ("1 - Generate a single world to screen")
@@ -771,7 +804,7 @@ def	main():
 		elif choice in [5, "5"]: #displays program information
 			print ("")
 			print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-			print("v1.45, March 9, 2017")
+			print("v1.5, March 27, 2017")
 			print("This is open source code, feel free to use it for any purpose")
 			print("contact the author at golan2072@gmail.com")
 			print("Press any key to continue")
