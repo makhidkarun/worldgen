@@ -7,43 +7,14 @@
 #import modules
 import random
 import string
-import os
-import platform
-
-def random_choice(list): #input list
-	"""
-	randomly chooses an element from a list.
-	"""
-	element=list[random.randint(0,len(list)-1)]
-	return element #output randomly-selected element
-
-def dice(n,sides): #inputs number of dice, sides per die
-	"""
-	die-rolling function
-	"""
-	die=0
-	roll=0
-	while die<n:
-		roll=roll+random.randint(1,sides)
-		die+=1
-	return roll #outputs die roll result	
-
-def pseudo_hex(num): #inputs number
-	"""
-	converts numbers to Cepheus Engine "Pseudo-Hex"
-	now converted to a list.
-	"""
-	num=int(num)
-	code=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "E", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-	num=code[num]
-	return num #outputs "pseudo-hex" number
+import stellagama
 
 def size_gen():
 	"""
 	generates the size number
 	"""
 	worldsize=0
-	worldsize=dice(2,6) - 2
+	worldsize=stellagama.dice(2,6) - 2
 	return worldsize #outputs world size number
 
 def atmo_gen(worldsize): #inputs world size number
@@ -51,7 +22,7 @@ def atmo_gen(worldsize): #inputs world size number
 	generates the atmosphere number
 	"""
 	worldatmo=0
-	worldatmo=dice(2,6)-7 + worldsize
+	worldatmo=stellagama.dice(2,6)-7 + worldsize
 	if worldsize == 0:
 		worldatmo = 0
 	if worldatmo < 0:
@@ -65,7 +36,7 @@ def hyd_gen(worldsize): #inputs world size number
 	generates the hydrographics number
 	"""
 	worldhyd=0
-	worldhyd=dice(2,6) - 7 + worldsize
+	worldhyd=stellagama.dice(2,6) - 7 + worldsize
 	if worldsize == 0:
 		hyd=worldhyd - 4
 	if worldsize == 1:
@@ -85,7 +56,7 @@ def pop_gen (worldsize, worldatmo, worldhyd): #inputs world size, atmospehere, a
 	generates the population number
 	"""
 	worldpop=0
-	worldpop=dice(2,6)-2
+	worldpop=stellagama.dice(2,6)-2
 	if worldsize<=2:
 		worldpop-=1
 	if worldatmo>=10:
@@ -105,7 +76,7 @@ def starport_gen (worldpop): #inputs the world population number
 	generate starport letter
 	"""
 	starport="X"
-	starport_roll=dice(2,6) - 7 + worldpop
+	starport_roll=stellagama.dice(2,6) - 7 + worldpop
 	if worldpop==0:
 		starport="X"
 	if starport_roll <= 2:
@@ -127,7 +98,7 @@ def gov_gen (worldpop): #inputs the world population number
 	generate government number
 	"""
 	worldgov=0
-	worldgov=dice(2,6) - 7 + worldpop
+	worldgov=stellagama.dice(2,6) - 7 + worldpop
 	if worldgov < 0:
 		worldgov=0
 	if worldgov>15:
@@ -141,7 +112,7 @@ def law_gen (worldgov): #inputs the world government number
 	generate law level number
 	"""
 	worldlaw=0
-	worldlaw=dice(2,6) - 7 + worldgov
+	worldlaw=stellagama.dice(2,6) - 7 + worldgov
 	if worldgov == 0:
 		worldlaw=0
 	if worldlaw<0:
@@ -153,7 +124,7 @@ def tech_gen (starport, worldsize, worldatmo, worldhyd, worldpop, worldgov): #in
 		generate tech-level number
 		"""
 		worldtech=0
-		worldtech=dice(1,6)
+		worldtech=stellagama.dice(1,6)
 		if starport == "A":
 			worldtech+=6
 		if starport== "B":
@@ -270,7 +241,7 @@ def pop_mod (worldpop): #inputs the world population number
 	generates the population multiplier
 	"""
 	popmod=0
-	popmod=dice(2,6) - 2
+	popmod=stellagama.dice(2,6) - 2
 	if worldpop==0:
 		popmod=0
 	if popmod>9:
@@ -283,9 +254,9 @@ def planetoid_gen(worldsize): #input world size
 	"""
 	planetoid=0
 	planetoid_presence=0
-	planetoid_presence=dice(2,6)
+	planetoid_presence=stellagama.dice(2,6)
 	if planetoid_presence >= 4 or worldsize == 0:
-		planetoid=dice(1, 6) - 3
+		planetoid=stellagama.dice(1, 6) - 3
 		if planetoid < 1:
 			planetoid = 1
 	else:
@@ -298,9 +269,9 @@ def gas_gen():
 	"""
 	gas=0
 	gas_presence=0
-	gas_presence=dice(2,6)
+	gas_presence=stellagama.dice(2,6)
 	if gas_presence >= 5:
-		gas=dice(1, 6) - 2
+		gas=stellagama.dice(1, 6) - 2
 		if gas < 1:
 			gas = 1
 	else:
@@ -329,13 +300,13 @@ def base_gen (starport): #input starship letter
 	pirate=0
 	pirate_presence=0
 	if starport in ["A", "B"]:
-		naval_presence=dice(2, 6)
+		naval_presence=stellagama.dice(2, 6)
 		if naval_presence >= 8:
 			naval=1
 		else:
 			naval=0
 	if starport in ["A", "B", "C", "D"]:
-		scout_presence=dice(2, 6)
+		scout_presence=stellagama.dice(2, 6)
 		if starport == "C":
 			scout_presence -= 1
 		if starport == "B":
@@ -345,7 +316,7 @@ def base_gen (starport): #input starship letter
 		if scout_presence >= 7:
 			scout=1
 	if starport != "A" and naval != 1:
-		pirate_presence=dice(2, 6)
+		pirate_presence=stellagama.dice(2, 6)
 		if pirate_presence >= 12:
 			pirate=1
 		else:
@@ -403,13 +374,13 @@ def uwp_hex (uwp_list): #input UWP list
 	"""
 	uwp=[]
 	uwp.append(uwp_list[0])
-	uwp.append(pseudo_hex(uwp_list[1]))
-	uwp.append(pseudo_hex(uwp_list[2]))
-	uwp.append(pseudo_hex(uwp_list[3]))
-	uwp.append(pseudo_hex(uwp_list[4]))
-	uwp.append(pseudo_hex(uwp_list[5]))
-	uwp.append(pseudo_hex(uwp_list[6]))
-	uwp.append(pseudo_hex(uwp_list[7]))
+	uwp.append(stellagama.pseudo_hex(uwp_list[1]))
+	uwp.append(stellagama.pseudo_hex(uwp_list[2]))
+	uwp.append(stellagama.pseudo_hex(uwp_list[3]))
+	uwp.append(stellagama.pseudo_hex(uwp_list[4]))
+	uwp.append(stellagama.pseudo_hex(uwp_list[5]))
+	uwp.append(stellagama.pseudo_hex(uwp_list[6]))
+	uwp.append(stellagama.pseudo_hex(uwp_list[7]))
 	uwp_string ="%s%s%s%s%s%s%s-%s " % (uwp[0],uwp[1],uwp[2],uwp[3],uwp[4],uwp[5],uwp[6],uwp[7])
 	return uwp_string #output Cepheus-style UWP string
 
@@ -432,14 +403,14 @@ def star_gen(uwp_list): #generates realistic stellar data using Constantine Thom
     primary=[]
     secondary=[]
     tretiary=[]
-    throw=dice(2,6)
+    throw=stellagama.dice(2,6)
     if throw<=7:
         n_stars=1
     if throw>=8 and throw<=11:
         n_stars=2
     if throw==12:
         n_stars=3
-    throw=dice(2,6) #generate primary star
+    throw=stellagama.dice(2,6) #generate primary star
     if uwp_list[2]>=4 and uwp_list[2]<=9:
         throw=throw+4
         tag=1
@@ -461,15 +432,15 @@ def star_gen(uwp_list): #generates realistic stellar data using Constantine Thom
         star_type="K"
     if throw>=13:
         star_type="G"
-    decimal1=dice(1,10)-1
-    throw1=dice(2,6)
+    decimal1=stellagama.dice(1,10)-1
+    throw1=stellagama.dice(2,6)
     if uwp_list[2]>=4 and uwp_list[2]<=9:
         throw1=throw1+4
         tag=1
     if uwp_list[4]>=8 and tag==0:
         throw1=throw1+4
     if throw1<=2:
-        throw=dice(1,6)
+        throw=stellagama.dice(1,6)
         if throw>=1 and throw<=3:
             size="D"
         if throw>=4 and throw<=5:
@@ -501,7 +472,7 @@ def star_gen(uwp_list): #generates realistic stellar data using Constantine Thom
         secondary=[]
         size=""
         star_type=""
-        throw=dice(2,6)
+        throw=stellagama.dice(2,6)
         if throw<=1:
             star_type="B"
         if throw<=2:
@@ -518,10 +489,10 @@ def star_gen(uwp_list): #generates realistic stellar data using Constantine Thom
             star_type="K"
         if throw>=13:
             star_type="G"
-        decimal2=dice(1,10)-1
-        throw1=dice(2,6)
+        decimal2=stellagama.dice(1,10)-1
+        throw1=stellagama.dice(2,6)
         if throw1==2:
-            throw=dice(1,6)
+            throw=stellagama.dice(1,6)
         if throw>=1 and throw<=3:
             size="D"
         if throw>=4 and throw<=5:
@@ -551,7 +522,7 @@ def star_gen(uwp_list): #generates realistic stellar data using Constantine Thom
         secondary=[]
         size=""
         star_type=""
-        throw=dice(2,6)
+        throw=stellagama.dice(2,6)
         if throw<=1:
             star_type="B"
         if throw==2:
@@ -568,10 +539,10 @@ def star_gen(uwp_list): #generates realistic stellar data using Constantine Thom
             star_type="K"
         if throw>=13:
             star_type="G"
-        decimal3=dice(1,10)-1
-        throw1=dice(2,6)
+        decimal3=stellagama.dice(1,10)-1
+        throw1=stellagama.dice(2,6)
         if throw1==2:
-            throw=dice(1,6)
+            throw=stellagama.dice(1,6)
             if throw>=1 and throw<=3:
                 size="D"
             if throw>=4 and throw<=5:
@@ -605,30 +576,9 @@ def name_gen():
 	"""
 	randomly chooses a world name from a list
 	"""
-	name=""
-	name_list=[\
-		"Asherah",\
-		"Baal",\
-		"Zvuv",\
-		"Kasis",\
-		"Shamash",\
-		"Yarikh",\
-		"El-Elyon",\
-		"Apollo",\
-		"Zeus",\
-		"Athena",\
-		"Artemis",\
-		"Rhea",\
-		"Gaea",\
-		"Pulodnitsa",\
-		"Koschei",\
-		"Triglav",\
-		"Belobog",\
-		"Chernobog",\
-		"Tschort",\
-		"Domovoi",\
-		"Alkonost"]
-	base_name=random_choice(name_list)
+	with open("names.txt") as namefile:
+		name_list = namefile.readlines()
+	base_name=stellagama.random_choice(name_list)
 	base_name=base_name.strip()
 	char_list=[base_name]
 	length_count=int(7-len(base_name)//2)
@@ -640,3 +590,7 @@ def name_gen():
 		char_list.append(" ")
 	name= " ".join(char_list)
 	return name #output random name
+	
+# Testing area
+
+print (name_gen())

@@ -10,91 +10,10 @@ import string
 import os
 import platform
 import worldgenlib
+import stellagama
 
 #set functions
 
-def dice(n,sides): #inputs number of dice, sides per die
-	"""
-	die-rolling function
-	"""
-	die=0
-	roll=0
-	while die<n:
-		roll=roll+random.randint(1,sides)
-		die+=1
-	return roll #outputs die roll result
-
-def yn():
-	"""
-	simple yes or no prompt filtering invalid results
-	"""
-	query = 1
-	while query == 1:
-		answer = str(input("Y/N: "))
-		answer=answer.lower()
-		if answer == "y":
-			return "y"
-			query = 0
-		if answer == "n":
-			return "n" #outputs "y" or "n"
-			query = 0
-		else:
-			print ("Invalid Answer")
-
-def current_dir():
-	"""
-	lists the current directory's contents on Windows or Linux
-	"""
-	if platform.system() == "Windows":
-		directory=os.listdir(".\\")
-	else:
-		directory = os.getcwd()
-	return directory
-			
-def check_file_exists(check_file):
-	if check_file in os.listdir():
-		file_exists = True
-	else:
-		file_exists = False
-	return file_exists
- 
-def savefile():
-	"""
-	file-saving function
-	"""
-	filename=str(input("Please enter file name to generate: "))
-	filecheck=filename+".sec"
-	save = 1
-	#directory=current_dir() #check if file already exists
-	#filenumber=len(directory)
-	#for i in range (0, filenumber):
-	#  print(directory[i])
-	#  #directory[i]=str(directory[i].lower())
-	#  directory = "fred"
-	#filecheck=filecheck.lower()
-	if check_file_exists(filecheck):
-		print(" ")
-		print("File already exists. Overwrite?")
-		overwrite=yn()
-		if overwrite == "y":
-			save=0
-		if overwrite == "n":
-			filename=input("Please enter new file name to generate: ")
-	return filename #outpus File name
-
-def clear_screen():
-	if platform.system() == "Windows":
-		os.system('cls')
-	else:
-		os.system('clear')
-
-def random_choice(list): #input list
-	"""
-	randomly chooses an element from a list.
-	"""
-	element=list[random.randint(0,len(list)-1)]
-	return element #output randomly-selected element
-	
 def world_gen (worldhex): #input hex number
 	"""
 	primary world-generating function
@@ -112,13 +31,13 @@ def world_gen (worldhex): #input hex number
 	stellar=worldgenlib.star_gen(uwp_list)
 	preliminary_world_string=worldname, str(worldhex), uwp_string, base, trade_string, zone, pbg, allegiance, stellar
 	world_string=str.join(' ', preliminary_world_string)
-	return world_string #output world row string compatible with a SEC file
-
+	return world_string #output world row string compatible with a SEC file	
+	
 def sec_gen (maxcolumn, maxrow): #input maximum generated space row and column. as well as the file name for generation
 	"""
 	SEC file generating function
 	"""
-	sector_name=savefile()
+	sector_name=stellagama.savefile("txt")
 	file_name=sector_name+".sec"
 	outp = open(file_name,"w")
 	outp.write(sector_name+'\r\n') #start of SEC file header output
@@ -140,7 +59,7 @@ def sec_gen (maxcolumn, maxrow): #input maximum generated space row and column. 
 	try: #added to make sure the file is always closed no matter what
 		for column in range (1, maxcolumn+1): #generate subsector, quadrant, or sector
 			for row in range (1, maxrow+1):
-				throw=dice(1,6)
+				throw=stellagama.dice(1,6)
 				if throw>=4:
 					if row<=9:
 						row_loc="0%i" % (row)
@@ -162,7 +81,7 @@ def	main():
 	"""
 	menu=1
 	while menu == 1: #Program will always return to the menu unless exited
-		clear_screen() #clears screen before any new appearance of the menu
+		stellagama.clear_screen() #clears screen before any new appearance of the menu
 		print ("")
 		print ("Welcome to the Cepheus Engine World Generator v1.5")
 		print ("========================================")
