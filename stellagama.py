@@ -101,6 +101,15 @@ def clear_screen():
 	else:
 		os.system('clear')
 
+def random_line (filename): #input file name
+	"""
+	randomly chooses a line from a text file
+	"""
+	with open (filename, "r") as line_list:
+			line=random_choice(line_list.readlines())
+			line=line.strip()
+	return line #output randomly-chosen line		
+		
 #testing area
 #class testpseudohex(unittest.TestCase):
 #	"""
@@ -111,13 +120,15 @@ def clear_screen():
 #		for i in range (0, 34):
 #			self.assertEqual(pseudo_hex(i), code[i])
 
-class Testdice(unittest.TestCase):
-	"""
-	test the dice function
-	"""
-	def dicetest(self):
-		self.assertEqual(dicetest(1, 6), [1, 6])
+# class Testdice(unittest.TestCase):
+	# """
+	# test the dice function
+	# """
+	# def dicetest(self):
+		# self.assertEqual(dicetest(1, 6), [1, 6])
 
 
-if __name__=='__main__':
-	unittest.main()
+# if __name__=='__main__':
+	# unittest.main()
+
+#print (random_line("names.txt"))
