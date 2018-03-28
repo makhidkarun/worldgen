@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.6, May 29, 2017.
+# v1.7, March 28th, 2018
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -39,24 +39,23 @@ def sec_gen (maxcolumn, maxrow): #input maximum generated space row and column. 
 	"""
 	sector_name=stellagama.savefile("txt")
 	file_name=sector_name+".sec"
-	outp = open(file_name,"w")
-	outp.write(sector_name+'\r\n') #start of SEC file header output
-	outp.write(""+'\r\n')
-	outp.write("The data in the sector text files is laid out in column format:"+'\r\n')
-	outp.write(""+'\r\n')
-	outp.write(" 1-14: Name"+'\r\n')
-	outp.write("15-18: HexNbr"+'\r\n')
-	outp.write("20-28: UWP"+'\r\n')
-	outp.write("   31: Bases"+'\r\n')
-	outp.write("33-47: Codes & Comments"+'\r\n')
-	outp.write("   49: Zone"+'\r\n')
-	outp.write("52-54: PBG"+'\r\n')
-	outp.write("56-57: Allegiance"+'\r\n')
-	outp.write("59-74: Stellar Data"+'\r\n')
-	outp.write(""+'\r\n')
-	outp.write("....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+....8"+'\r\n')
-	outp.write(""+'\r\n') #end of SEC file header output
-	try: #added to make sure the file is always closed no matter what
+	with open(file_name,"w") as outp:
+		outp.write(sector_name+'\r\n') #start of SEC file header output
+		outp.write(""+'\r\n')
+		outp.write("The data in the sector text files is laid out in column format:"+'\r\n')
+		outp.write(""+'\r\n')
+		outp.write(" 1-14: Name"+'\r\n')
+		outp.write("15-18: HexNbr"+'\r\n')
+		outp.write("20-28: UWP"+'\r\n')
+		outp.write("   31: Bases"+'\r\n')
+		outp.write("33-47: Codes & Comments"+'\r\n')
+		outp.write("   49: Zone"+'\r\n')
+		outp.write("52-54: PBG"+'\r\n')
+		outp.write("56-57: Allegiance"+'\r\n')
+		outp.write("59-74: Stellar Data"+'\r\n')
+		outp.write(""+'\r\n')
+		outp.write("....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+....8"+'\r\n')
+		outp.write(""+'\r\n') #end of SEC file header output
 		for column in range (1, maxcolumn+1): #generate subsector, quadrant, or sector
 			for row in range (1, maxrow+1):
 				throw=stellagama.dice(1,6)
@@ -71,21 +70,12 @@ def sec_gen (maxcolumn, maxrow): #input maximum generated space row and column. 
 						column_loc="%i" % (column)
 					worldhex=column_loc+row_loc
 					world_line=world_gen(worldhex)
-					outp.write(world_line+'\r\n')
-	finally: #added to make sure the file is always closed no matter what
-		outp.close() #close file	
-				
-def	main():
-	"""
-	Main program body
-	"""
-	menu=1
-	while menu == 1: #Program will always return to the menu unless exited
-		stellagama.clear_screen() #clears screen before any new appearance of the menu
+					outp.write(world_line+'\r\n')	
+def	print_menu():
 		print ("")
-		print ("Welcome to the Cepheus Engine World Generator v1.5")
+		print ("Welcome to the Cepheus Engine World Generator v1.7")
 		print ("========================================")
-		print ("Please choose an option:")
+		print ("Please choose an option and press enter:")
 		print ("1 - Generate a single world to screen")
 		print ("2 - Generate a subsector to file")
 		print ("3 - Generate a quadrant to file")
@@ -93,49 +83,62 @@ def	main():
 		print ("5 - About")
 		print ("6 - Exit Program")
 		print ("========================================")
-		choice=input("Please enter your choice: ")
+				
+def	main():
+	"""
+	Main program body
+	"""
+	stellagama.clear_screen()
+	print_menu()
+	menu=True
+	while menu == True:
+		choice=input()
 		if choice in [1, "1"]:
+			stellagama.clear_screen()
+			print_menu()			
 			print("")
 			print (world_gen("0101"))
 			print("")
-			print("Press any key to continue")
-			input()
 		elif choice in  [2, "2"]:
+			stellagama.clear_screen()
+			print_menu()			
 			print("")
 			print ("Generating subsector to file")
 			print ("")
 			sec_gen(8, 10)
-			print ("Subsector generated, press any key to continue")
-			input()
+			print ("Subsector generated to file")
 		elif choice in [3, "3"]:
+			stellagama.clear_screen()
+			print_menu()			
 			print("")
 			print ("Generating quadrant to file")
 			print ("")
 			sec_gen(16, 20)
-			print ("Quadrant generated, press any key to continue")
-			input()
+			print ("Quadrant generated to file")
 		elif choice in [4, "4"]:
+			stellagama.clear_screen()
+			print_menu()			
 			print("")
 			print ("Generating sector to file")
 			print ("")
 			sec_gen(32, 40)
-			print ("Sector generated, press any key to continue")
-			input()
+			print ("Sector generated to file")
 		elif choice in [5, "5"]: #displays program information
+			stellagama.clear_screen()
+			print_menu()			
 			print ("")
 			print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-			print("v1.5, March 27, 2017")
+			print("v1.7, March 28, 2018")
 			print("This is open source code, feel free to use it for any purpose")
 			print("contact the author at golan2072@gmail.com")
-			print("Press any key to continue")
-			input()
 		elif choice in [6, "6"]:
 			print("Exiting program")
-			menu=0
+			menu=False
 			break
 		else:
+			stellagama.clear_screen()
+			print_menu()			
 			print ("Invalid Input, press any key to return to menu")
-			input()
 
 #Program execution starts here
 main()
