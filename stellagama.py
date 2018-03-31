@@ -1,6 +1,6 @@
 #stellagama.py
 # A module with various useful functions by Omer Golan-Joel
-# v2.2, March 31st, 2018
+# v2.3, March 31st, 2018
 # This is open source code, feel free to use it for any purpose
 # contact me at golan2072@gmail.com
 
@@ -111,21 +111,21 @@ def random_line (filename): #input file name
 			line=line.strip()
 	return line #output randomly-chosen line		
 
-class _Getch:
+class Getch:
 	"""
 	Gets a single character from standard input.  Does not echo to the
 	screen
 	"""
 	def __init__(self):
 		try:
-			self.impl = _GetchWindows()
+			self.impl = GetchWindows()
 		except ImportError:
 			self.impl = GetchUnix()
 			
 	def __call__(self):
 		return self.impl()
 
-class _GetchUnix:
+class GetchUnix:
 	def __init__(self):
 		import tty, sys
 			
@@ -140,7 +140,7 @@ class _GetchUnix:
 			termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 		return ch
 		
-class _GetchWindows:
+class GetchWindows:
 	def __init__(self):
 		import msvcrt
 
@@ -152,8 +152,13 @@ def	getkeypress():
 	"""
 	reads a single keypress
 	"""
-	key = _Getch()
-	return key().decode() #outputs keypress
+	if platform.system() == "Windows":
+		directory=os.listdir(".\\")
+		key = Getch()
+		return key().decode() #outputs keypress
+	else:
+		key = Getch()
+		return key() #outputs keypress
 		
 #testing area
 #class testpseudohex(unittest.TestCase):
