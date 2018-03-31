@@ -1,6 +1,6 @@
 #stellagama.py
 # A module with various useful functions by Omer Golan-Joel
-# v2.0, February 28th, 2018
+# v2.1, March 31st, 2018
 # This is open source code, feel free to use it for any purpose
 # contact me at golan2072@gmail.com
 
@@ -176,10 +176,5 @@ def	getkeypress():
 # if __name__=='__main__':
 	# unittest.main()
 
-#print (random_line("names.txt"))
-
-
-
-getch = _Getch()
-
-print (getkeypress())
+# getch = _Getch()
+# print (getkeypress())
