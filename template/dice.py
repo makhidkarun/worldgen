@@ -14,8 +14,9 @@ import random
     Can add shortcuts like dice.roll_2d6 or whatever.
 '''
 
+
 def roll(die_min=1, die_max=6, die_count=1, modifier=0):
-	'''
+    '''
 	(int, int, int, int) -> int
 
 	roll(die_minimum, die_maximum, die_count, modifier)
@@ -35,14 +36,14 @@ def roll(die_min=1, die_max=6, die_count=1, modifier=0):
 	print("Rolled %d on 2d6 and %d on 1d100!" % (my_2d6, my_d100))
 	'''
 
-	result = modifier
-	for x in range(die_count):
-		result += random.randint(die_min, die_max)
-	return result
+    result = modifier
+    for x in range(die_count):
+        result += random.randint(die_min, die_max)
+    return result
 
 
 def flux():
-	'''
+    '''
 	() -> int
 	
 	flux()
@@ -51,6 +52,6 @@ def flux():
 	Flux is used in T5.
 	'''
 
-	flux = 0
-	flux = roll(1,6,1,0) - roll(1,6,1,0)
-	return flux
+    flux = 0
+    flux = roll(1, 6, 1, 0) - roll(1, 6, 1, 0)
+    return flux
