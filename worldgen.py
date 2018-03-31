@@ -1,6 +1,6 @@
 # worldgen.py
 # World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-# v1.7, March 28th, 2018
+# v1.9, March 31st, 2018
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
@@ -73,7 +73,7 @@ def sec_gen (maxcolumn, maxrow): #input maximum generated space row and column. 
 					outp.write(world_line+'\r\n')	
 def	print_menu():
 		print ("")
-		print ("Welcome to the Cepheus Engine World Generator v1.7")
+		print ("Welcome to the Cepheus Engine World Generator v1.9")
 		print ("========================================")
 		print ("Please choose an option and press enter:")
 		print ("1 - Generate a single world to screen")
@@ -92,7 +92,7 @@ def	main():
 	print_menu()
 	menu=True
 	while menu == True:
-		choice=input()
+		choice=stellagama.getkeypress()
 		if choice in [1, "1"]:
 			stellagama.clear_screen()
 			print_menu()			
@@ -128,7 +128,7 @@ def	main():
 			print_menu()			
 			print ("")
 			print("World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games")
-			print("v1.7, March 28, 2018")
+			print("v1.9, March 31st, 2018")
 			print("This is open source code, feel free to use it for any purpose")
 			print("contact the author at golan2072@gmail.com")
 		elif choice in [6, "6"]:
