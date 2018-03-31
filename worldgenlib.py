@@ -1,6 +1,6 @@
 # worldgenlib.py
 # Cepheus Engine world generation data and rules library
-# v1.0, May 29, 2017
+# v1.1, March 31st, 2018
 # This is open source code, feel free to use it for any purpose.
 # Contact the author at golan2072@gmail.com.
 
