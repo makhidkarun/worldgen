@@ -81,6 +81,7 @@ def pseudo_hex(num):  # inputs number
         "N",
         "P",
         "Q",
+        "R",
         "S",
         "T",
         "U",
