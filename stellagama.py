@@ -111,42 +111,49 @@ def random_line (filename): #input file name
 			line=line.strip()
 	return line #output randomly-chosen line		
 
-# class _Getch:
-	# """
-	# Gets a single character from standard input.  Does not echo to the
-	# screen
-	# """
-	# def __init__(self):
-		# try:
-			# self.impl = _GetchWindows()
-		# except ImportError:
-			# self.impl = GetchUnix()
+class _Getch:
+	"""
+	Gets a single character from standard input.  Does not echo to the
+	screen
+	"""
+	def __init__(self):
+		try:
+			self.impl = _GetchWindows()
+		except ImportError:
+			self.impl = GetchUnix()
 			
-	# def __call__(self):
-		# return self.impl()
+	def __call__(self):
+		return self.impl()
 
-# class _GetchUnix:
-	# def __init__(self):
-		# import tty, sys
+class _GetchUnix:
+	def __init__(self):
+		import tty, sys
 			
-	# def __call__(self):
-		# import sys, tty, termios
-		# fd = sys.stdin.fileno()
-		# old_settings = termios.tcgetattr(fd)
-		# try:
-			# tty.setraw(sys.stdin.fileno())
-			# ch = sys.stdin.read(1)
-		# finally:
-			# termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-		# return ch
+	def __call__(self):
+		import sys, tty, termios
+		fd = sys.stdin.fileno()
+		old_settings = termios.tcgetattr(fd)
+		try:
+			tty.setraw(sys.stdin.fileno())
+			ch = sys.stdin.read(1)
+		finally:
+			termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+		return ch
 		
-# class _GetchWindows:
-	# def __init__(self):
-		# import msvcrt
+class _GetchWindows:
+	def __init__(self):
+		import msvcrt
 
-	# def __call__(self):
-		# import msvcrt
-		# return msvcrt.getch()
+	def __call__(self):
+		import msvcrt
+		return msvcrt.getch()
+
+def	getkeypress():
+	"""
+	reads a single keypress
+	"""
+	key = _Getch()
+	return getch().decode() #outputs keypress
 		
 #testing area
 #class testpseudohex(unittest.TestCase):
@@ -171,6 +178,8 @@ def random_line (filename): #input file name
 
 #print (random_line("names.txt"))
 
-# getch = _Getch()
 
-# print (getch)
+
+getch = _Getch()
+
+print (getkeypress())
