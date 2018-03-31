@@ -1,9 +1,12 @@
 # worldgen
 World generation for the Cepheus Engine and similar OGL 2d6 Sci-Fi games.
-v1.8 March 28th, 2018
+v1.9 March 31st, 2018
 Generates old-school SEC files compatible with various Traveller-type applications.
 This is open source code, feel free to use it for any purpose.
 Contact the author at golan2072@gmail.com.
+
+v1.9 changelog:
+- Menu now receives direct keypresses without requiring "Enter".
 
 v1.8 changelog:
 - Improved the menu refresh system.
