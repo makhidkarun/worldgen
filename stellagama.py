@@ -1,6 +1,6 @@
 #stellagama.py
 # A module with various useful functions by Omer Golan-Joel
-# v2.1, March 31st, 2018
+# v2.2, March 31st, 2018
 # This is open source code, feel free to use it for any purpose
 # contact me at golan2072@gmail.com
 
@@ -153,7 +153,7 @@ def	getkeypress():
 	reads a single keypress
 	"""
 	key = _Getch()
-	return getch().decode() #outputs keypress
+	return key().decode() #outputs keypress
 		
 #testing area
 #class testpseudohex(unittest.TestCase):
