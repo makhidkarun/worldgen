@@ -90,6 +90,7 @@ def savefile(extension): #input extension
 			save=0
 		if overwrite == "n":
 			filename=input("Please enter new file name to generate: ")
+	filename=filename+"."+extension
 	return filename #outpus File name
 
 def clear_screen():
@@ -109,6 +110,43 @@ def random_line (filename): #input file name
 			line=random_choice(line_list.readlines())
 			line=line.strip()
 	return line #output randomly-chosen line		
+
+# class _Getch:
+	# """
+	# Gets a single character from standard input.  Does not echo to the
+	# screen
+	# """
+	# def __init__(self):
+		# try:
+			# self.impl = _GetchWindows()
+		# except ImportError:
+			# self.impl = GetchUnix()
+			
+	# def __call__(self):
+		# return self.impl()
+
+# class _GetchUnix:
+	# def __init__(self):
+		# import tty, sys
+			
+	# def __call__(self):
+		# import sys, tty, termios
+		# fd = sys.stdin.fileno()
+		# old_settings = termios.tcgetattr(fd)
+		# try:
+			# tty.setraw(sys.stdin.fileno())
+			# ch = sys.stdin.read(1)
+		# finally:
+			# termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+		# return ch
+		
+# class _GetchWindows:
+	# def __init__(self):
+		# import msvcrt
+
+	# def __call__(self):
+		# import msvcrt
+		# return msvcrt.getch()
 		
 #testing area
 #class testpseudohex(unittest.TestCase):
@@ -132,3 +170,7 @@ def random_line (filename): #input file name
 	# unittest.main()
 
 #print (random_line("names.txt"))
+
+# getch = _Getch()
+
+# print (getch)
