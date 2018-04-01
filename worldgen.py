@@ -17,8 +17,8 @@ import stellagama
 
 def world_gen(worldhex):  # input hex number
     """
-	primary world-generating function
-	"""
+    primary world-generating function
+    """
     worldname = worldgenlib.name_gen()  # generates world name from list
     allegiance = "Na"  # currently a placeholder
     stellar = " "
@@ -35,7 +35,7 @@ def world_gen(worldhex):  # input hex number
     preliminary_world_string = worldname, str(
         worldhex
     ), uwp_string, base, trade_string, zone, pbg, allegiance, stellar
-    world_string = str.join(' ', preliminary_world_string)
+    world_string = str.join(" ", preliminary_world_string)
     return world_string  # output world row string compatible with a SEC file
 
 
@@ -43,32 +43,32 @@ def sec_gen(
     maxcolumn, maxrow
 ):  # input maximum generated space row and column. as well as the file name for generation
     """
-	SEC file generating function
-	"""
+    SEC file generating function
+    """
     sector_name = stellagama.savefile("txt")
     file_name = sector_name + ".sec"
     with open(file_name, "w") as outp:
-        outp.write(sector_name + '\r\n')  # start of SEC file header output
-        outp.write("" + '\r\n')
+        outp.write(sector_name + "\r\n")  # start of SEC file header output
+        outp.write("" + "\r\n")
         outp.write(
-            "The data in the sector text files is laid out in column format:" + '\r\n'
+            "The data in the sector text files is laid out in column format:" + "\r\n"
         )
-        outp.write("" + '\r\n')
-        outp.write(" 1-14: Name" + '\r\n')
-        outp.write("15-18: HexNbr" + '\r\n')
-        outp.write("20-28: UWP" + '\r\n')
-        outp.write("   31: Bases" + '\r\n')
-        outp.write("33-47: Codes & Comments" + '\r\n')
-        outp.write("   49: Zone" + '\r\n')
-        outp.write("52-54: PBG" + '\r\n')
-        outp.write("56-57: Allegiance" + '\r\n')
-        outp.write("59-74: Stellar Data" + '\r\n')
-        outp.write("" + '\r\n')
+        outp.write("" + "\r\n")
+        outp.write(" 1-14: Name" + "\r\n")
+        outp.write("15-18: HexNbr" + "\r\n")
+        outp.write("20-28: UWP" + "\r\n")
+        outp.write("   31: Bases" + "\r\n")
+        outp.write("33-47: Codes & Comments" + "\r\n")
+        outp.write("   49: Zone" + "\r\n")
+        outp.write("52-54: PBG" + "\r\n")
+        outp.write("56-57: Allegiance" + "\r\n")
+        outp.write("59-74: Stellar Data" + "\r\n")
+        outp.write("" + "\r\n")
         outp.write(
-            "....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+....8" +
-            '\r\n'
+            "....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+....8"
+            + "\r\n"
         )
-        outp.write("" + '\r\n')  # end of SEC file header output
+        outp.write("" + "\r\n")  # end of SEC file header output
         for column in range(
             1, maxcolumn + 1
         ):  # generate subsector, quadrant, or sector
@@ -85,7 +85,7 @@ def sec_gen(
                         column_loc = "%i" % (column)
                     worldhex = column_loc + row_loc
                     world_line = world_gen(worldhex)
-                    outp.write(world_line + '\r\n')
+                    outp.write(world_line + "\r\n")
 
 
 def print_menu():
@@ -104,8 +104,8 @@ def print_menu():
 
 def main():
     """
-	Main program body
-	"""
+    Main program body
+    """
     stellagama.clear_screen()
     print_menu()
     menu = True

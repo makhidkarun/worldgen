@@ -12,8 +12,8 @@ import stellagama
 
 def size_gen():
     """
-	generates the size number
-	"""
+    generates the size number
+    """
     worldsize = 0
     worldsize = stellagama.dice(2, 6) - 2
     return worldsize  # outputs world size number
@@ -21,8 +21,8 @@ def size_gen():
 
 def atmo_gen(worldsize):  # inputs world size number
     """
-	generates the atmosphere number
-	"""
+    generates the atmosphere number
+    """
     worldatmo = 0
     worldatmo = stellagama.dice(2, 6) - 7 + worldsize
     if worldsize == 0:
@@ -36,8 +36,8 @@ def atmo_gen(worldsize):  # inputs world size number
 
 def hyd_gen(worldsize):  # inputs world size number
     """
-	generates the hydrographics number
-	"""
+    generates the hydrographics number
+    """
     worldhyd = 0
     worldhyd = stellagama.dice(2, 6) - 7 + worldsize
     if worldsize == 0:
@@ -59,8 +59,8 @@ def pop_gen(
     worldsize, worldatmo, worldhyd
 ):  # inputs world size, atmospehere, and hydrographics numbers
     """
-	generates the population number
-	"""
+    generates the population number
+    """
     worldpop = 0
     worldpop = stellagama.dice(2, 6) - 2
     if worldsize <= 2:
@@ -80,8 +80,8 @@ def pop_gen(
 
 def starport_gen(worldpop):  # inputs the world population number
     """
-	generate starport letter
-	"""
+    generate starport letter
+    """
     starport = "X"
     starport_roll = stellagama.dice(2, 6) - 7 + worldpop
     if worldpop == 0:
@@ -103,8 +103,8 @@ def starport_gen(worldpop):  # inputs the world population number
 
 def gov_gen(worldpop):  # inputs the world population number
     """
-	generate government number
-	"""
+    generate government number
+    """
     worldgov = 0
     worldgov = stellagama.dice(2, 6) - 7 + worldpop
     if worldgov < 0:
@@ -118,8 +118,8 @@ def gov_gen(worldpop):  # inputs the world population number
 
 def law_gen(worldgov):  # inputs the world government number
     """
-	generate law level number
-	"""
+    generate law level number
+    """
     worldlaw = 0
     worldlaw = stellagama.dice(2, 6) - 7 + worldgov
     if worldgov == 0:
@@ -133,8 +133,8 @@ def tech_gen(
     starport, worldsize, worldatmo, worldhyd, worldpop, worldgov
 ):  # input the world's starport, size, atmosphere, hydrographics, population, and government ratings - 6 parameters
     """
-		generate tech-level number
-		"""
+        generate tech-level number
+        """
     worldtech = 0
     worldtech = stellagama.dice(1, 6)
     if starport == "A":
@@ -189,8 +189,8 @@ def uwp_list_gen(
     starport, worldsize, worldatmo, worldhyd, worldpop, worldgov, worldlaw, worldtech
 ):  # input the world's starport, size, atmosphere, hydrographics, population, government, law, and tech-level ratings - 8 parameters
     """
-	convert world variables into a UWP list
-	"""
+    convert world variables into a UWP list
+    """
     uwp_list = [
         starport,
         worldsize,
@@ -206,8 +206,8 @@ def uwp_list_gen(
 
 def trade_gen(uwp_list):  # input UWP list
     """
-	determine trade codes from a UWP list
-	"""
+    determine trade codes from a UWP list
+    """
     trade_list = []
     if uwp_list[2] in [4, 5, 6, 7, 8, 9] and uwp_list[3] in [
         4, 5, 6, 7, 8
@@ -260,9 +260,9 @@ def trade_gen(uwp_list):  # input UWP list
 
 def trade_stringer(trade_list):  # input trade code list
     """
-	build a Trade Code string suitable for a SEC file
-	Note that this is a plain text file formatted by spaces so the trade code string's length must be fixed.
-	"""
+    build a Trade Code string suitable for a SEC file
+    Note that this is a plain text file formatted by spaces so the trade code string's length must be fixed.
+    """
     trade_string = ""
     trade_count = 6 - len(trade_list)
     if trade_count <= 0:
@@ -275,8 +275,8 @@ def trade_stringer(trade_list):  # input trade code list
 
 def pop_mod(worldpop):  # inputs the world population number
     """
-	generates the population multiplier
-	"""
+    generates the population multiplier
+    """
     popmod = 0
     popmod = stellagama.dice(2, 6) - 2
     if worldpop == 0:
@@ -288,8 +288,8 @@ def pop_mod(worldpop):  # inputs the world population number
 
 def planetoid_gen(worldsize):  # input world size
     """
-	determine planetoid presence
-	"""
+    determine planetoid presence
+    """
     planetoid = 0
     planetoid_presence = 0
     planetoid_presence = stellagama.dice(2, 6)
@@ -304,8 +304,8 @@ def planetoid_gen(worldsize):  # input world size
 
 def gas_gen():
     """
-	determine gas giant presence
-	"""
+    determine gas giant presence
+    """
     gas = 0
     gas_presence = 0
     gas_presence = stellagama.dice(2, 6)
@@ -320,8 +320,8 @@ def gas_gen():
 
 def pbg_gen(uwp_list):  # inout world UWP list
     """
-	generates a three-digit code of the population multiplier, planetoid belt number, and gas giant number
-	"""
+    generates a three-digit code of the population multiplier, planetoid belt number, and gas giant number
+    """
     popmod = pop_mod(uwp_list[4])
     planetoid = planetoid_gen(uwp_list[1])
     gas = gas_gen()
@@ -331,8 +331,8 @@ def pbg_gen(uwp_list):  # inout world UWP list
 
 def base_gen(starport):  # input starship letter
     """
-	determine base presence
-	"""
+    determine base presence
+    """
     base = " "
     naval = 0
     naval_presence = 0
@@ -377,8 +377,8 @@ def base_gen(starport):  # input starship letter
 
 def zone_gen(uwp_list):  # input UWP list
     """
-	determine Amber Zone presence
-	"""
+    determine Amber Zone presence
+    """
     zone = ""
     if uwp_list[2] >= 10 or uwp_list[5] in [0, 7, 10] or uwp_list[6] == 0 or uwp_list[
         6
@@ -391,17 +391,17 @@ def zone_gen(uwp_list):  # input UWP list
 
 def uwp_gen():
     """
-		generate world UWP list
-		List explanation:
-		uwp_list[0] - starport
-		uwp_list[1] - size
-		uwp_list[2] - atmosphere
-		uwp_list[3] - hydrographics
-		uwp_list[4] - population
-		uwp_list[5] - government
-		uwp_list[6] - law level
-		uwp_list[7] - tech-level
-		"""
+        generate world UWP list
+        List explanation:
+        uwp_list[0] - starport
+        uwp_list[1] - size
+        uwp_list[2] - atmosphere
+        uwp_list[3] - hydrographics
+        uwp_list[4] - population
+        uwp_list[5] - government
+        uwp_list[6] - law level
+        uwp_list[7] - tech-level
+        """
     worldsize = size_gen()  # generate world size
     worldatmo = atmo_gen(worldsize)  # generate world atmosphere
     worldhyd = hyd_gen(worldsize)  # generate world hydrographics
@@ -427,8 +427,8 @@ def uwp_gen():
 
 def uwp_hex(uwp_list):  # input UWP list
     """
-	convert the UWP list to a pseudo-hex UWP string
-	"""
+    convert the UWP list to a pseudo-hex UWP string
+    """
     uwp = []
     uwp.append(uwp_list[0])
     uwp.append(stellagama.pseudo_hex(uwp_list[1]))
@@ -631,14 +631,14 @@ def star_gen(
         startext3 = "%s%s%s " % (tretiary[0], tretiary[1], tretiary[2])
 
     startext4 = startext1 + startext2 + startext3
-    startext = str.join('', startext4)
+    startext = str.join("", startext4)
     return startext
 
 
 def name_gen():
     """
-	randomly chooses a world name from a list
-	"""
+    randomly chooses a world name from a list
+    """
     with open("names.txt") as namefile:
         name_list = namefile.readlines()
     base_name = stellagama.random_choice(name_list)

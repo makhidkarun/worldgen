@@ -14,8 +14,8 @@ import platform
 
 def yn():
     """
-	Simple yes or no prompt filtering invalid results
-	"""
+    Simple yes or no prompt filtering invalid results
+    """
     query = 1
     while query == 1:
         answer = input("Y/N: ")
@@ -31,16 +31,16 @@ def yn():
 
 def random_choice(list):  # input list
     """
-	randomly chooses an element from a list.
-	"""
+    randomly chooses an element from a list.
+    """
     element = list[random.randint(0, len(list) - 1)]
     return element  # output randomly-selected element
 
 
 def dice(n, sides):
     """
-	dice-roller
-	"""
+    dice-roller
+    """
     die = 0
     roll = 0
     while die < n:
@@ -51,9 +51,9 @@ def dice(n, sides):
 
 def pseudo_hex(num):  # inputs number
     """
-	converts numbers to Cepheus Engine "Pseudo-Hex"
-	now converted to a list.
-	"""
+    converts numbers to Cepheus Engine "Pseudo-Hex"
+    now converted to a list.
+    """
     num = int(num)
     code = [
         "0",
@@ -97,8 +97,8 @@ def pseudo_hex(num):  # inputs number
 
 def current_dir():
     """
-	lists the current directory's contents on Windows or Linux
-	"""
+    lists the current directory's contents on Windows or Linux
+    """
     if platform.system() == "Windows":
         directory = os.listdir(".\\")
     else:
@@ -108,8 +108,8 @@ def current_dir():
 
 def check_file_exists(check_file):
     """
-	checks if a file exists in the directory
-	"""
+    checks if a file exists in the directory
+    """
     if check_file in os.listdir():
         file_exists = True
     else:
@@ -119,8 +119,8 @@ def check_file_exists(check_file):
 
 def savefile(extension):  # input extension
     """
-	file-saving function
-	"""
+    file-saving function
+    """
     filename = str(input("Please enter file name to generate: "))
     filecheck = filename + "." + extension  # checks in a file with the same name exists in the 		directory
     save = 1
@@ -138,18 +138,18 @@ def savefile(extension):  # input extension
 
 def clear_screen():
     """
-	clear screen function
-	"""
+    clear screen function
+    """
     if platform.system() == "Windows":
-        os.system('cls')
+        os.system("cls")
     else:
-        os.system('clear')
+        os.system("clear")
 
 
 def random_line(filename):  # input file name
     """
-	randomly chooses a line from a text file
-	"""
+    randomly chooses a line from a text file
+    """
     with open(filename, "r") as line_list:
         line = random_choice(line_list.readlines())
         line = line.strip()
@@ -158,9 +158,9 @@ def random_line(filename):  # input file name
 
 class Getch:
     """
-	Gets a single character from standard input.  Does not echo to the
-	screen
-	"""
+    Gets a single character from standard input.  Does not echo to the
+    screen
+    """
 
     def __init__(self):
         try:
@@ -202,8 +202,8 @@ class GetchWindows:
 
 def getkeypress():
     """
-	reads a single keypress
-	"""
+    reads a single keypress
+    """
     if platform.system() == "Windows":
         directory = os.listdir(".\\")
         key = Getch()
